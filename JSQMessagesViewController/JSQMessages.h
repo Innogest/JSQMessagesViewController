@@ -44,10 +44,8 @@
 
 #import "JSQMediaItem.h"
 #import "JSQPhotoMediaItem.h"
-#import "JSQVideoMediaItem.h"
 
 #import "JSQMessagesBubbleImage.h"
-#import "JSQMessagesAvatarImage.h"
 
 //  Protocols
 #import "JSQMessageData.h"
@@ -58,7 +56,6 @@
 #import "JSQMessagesCollectionViewDelegateFlowLayout.h"
 
 //  Factories
-#import "JSQMessagesAvatarImageFactory.h"
 #import "JSQMessagesBubbleImageFactory.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
 #import "JSQMessagesTimestampFormatter.h"
