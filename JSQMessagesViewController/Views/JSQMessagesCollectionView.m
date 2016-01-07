@@ -23,12 +23,11 @@
 #import "JSQMessagesCollectionViewCellOutgoing.h"
 
 #import "JSQMessagesTypingIndicatorFooterView.h"
-#import "JSQMessagesLoadEarlierHeaderView.h"
 
 #import "UIColor+JSQMessages.h"
 
 
-@interface JSQMessagesCollectionView () <JSQMessagesLoadEarlierHeaderViewDelegate>
+@interface JSQMessagesCollectionView ()
 
 - (void)jsq_configureCollectionView;
 
@@ -67,10 +66,6 @@
     [self registerNib:[JSQMessagesTypingIndicatorFooterView nib]
           forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
           withReuseIdentifier:[JSQMessagesTypingIndicatorFooterView footerReuseIdentifier]];
-    
-    [self registerNib:[JSQMessagesLoadEarlierHeaderView nib]
-          forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-          withReuseIdentifier:[JSQMessagesLoadEarlierHeaderView headerReuseIdentifier]];
 
     _typingIndicatorDisplaysOnLeft = YES;
     _typingIndicatorMessageBubbleColor = [UIColor jsq_messageBubbleLightGrayColor];
@@ -108,20 +103,6 @@
                          forCollectionView:self];
 
     return footerView;
-}
-
-#pragma mark - Load earlier messages header
-
-- (JSQMessagesLoadEarlierHeaderView *)dequeueLoadEarlierMessagesViewHeaderForIndexPath:(NSIndexPath *)indexPath
-{
-    JSQMessagesLoadEarlierHeaderView *headerView = [super dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                             withReuseIdentifier:[JSQMessagesLoadEarlierHeaderView headerReuseIdentifier]
-                                                                                    forIndexPath:indexPath];
-
-    headerView.loadButton.tintColor = self.loadEarlierMessagesHeaderTextColor;
-    headerView.delegate = self;
-
-    return headerView;
 }
 
 #pragma mark - Load earlier messages header delegate

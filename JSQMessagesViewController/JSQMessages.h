@@ -26,7 +26,6 @@
 #import "JSQMessagesCollectionViewCellIncoming.h"
 #import "JSQMessagesCollectionViewCellOutgoing.h"
 #import "JSQMessagesTypingIndicatorFooterView.h"
-#import "JSQMessagesLoadEarlierHeaderView.h"
 
 //  Layout
 #import "JSQMessagesBubbleSizeCalculating.h"
@@ -45,11 +44,8 @@
 
 #import "JSQMediaItem.h"
 #import "JSQPhotoMediaItem.h"
-#import "JSQLocationMediaItem.h"
-#import "JSQVideoMediaItem.h"
 
 #import "JSQMessagesBubbleImage.h"
-#import "JSQMessagesAvatarImage.h"
 
 //  Protocols
 #import "JSQMessageData.h"
@@ -60,7 +56,6 @@
 #import "JSQMessagesCollectionViewDelegateFlowLayout.h"
 
 //  Factories
-#import "JSQMessagesAvatarImageFactory.h"
 #import "JSQMessagesBubbleImageFactory.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
 #import "JSQMessagesTimestampFormatter.h"

@@ -46,7 +46,6 @@
     
     XCTAssertNotNil(self.contentView.textView, @"Text view should not be nil");
     XCTAssertTrue([self.contentView.textView isKindOfClass:[JSQMessagesComposerTextView class]], @"Text view should be a %@", [JSQMessagesComposerTextView class]);
-    XCTAssertNil(self.contentView.leftBarButtonItem, @"Property should be equal to default value");
     XCTAssertNil(self.contentView.rightBarButtonItem, @"Property should be equal to default value");
 }
 

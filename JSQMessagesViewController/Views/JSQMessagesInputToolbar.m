@@ -68,8 +68,7 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     _contentView = toolbarContentView;
 
     [self jsq_addObservers];
-
-    self.contentView.leftBarButtonItem = [JSQMessagesToolbarButtonFactory defaultAccessoryButtonItem];
+    
     self.contentView.rightBarButtonItem = [JSQMessagesToolbarButtonFactory defaultSendButtonItem];
 
     [self toggleSendButtonEnabled];
@@ -118,9 +117,6 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     if (self.sendButtonOnRight) {
         self.contentView.rightBarButtonItem.enabled = hasText;
     }
-    else {
-        self.contentView.leftBarButtonItem.enabled = hasText;
-    }
 }
 
 #pragma mark - Key-value observing
@@ -130,17 +126,7 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     if (context == kJSQMessagesInputToolbarKeyValueObservingContext) {
         if (object == self.contentView) {
 
-            if ([keyPath isEqualToString:NSStringFromSelector(@selector(leftBarButtonItem))]) {
-
-                [self.contentView.leftBarButtonItem removeTarget:self
-                                                          action:NULL
-                                                forControlEvents:UIControlEventTouchUpInside];
-
-                [self.contentView.leftBarButtonItem addTarget:self
-                                                       action:@selector(jsq_leftBarButtonPressed:)
-                                             forControlEvents:UIControlEventTouchUpInside];
-            }
-            else if ([keyPath isEqualToString:NSStringFromSelector(@selector(rightBarButtonItem))]) {
+            if ([keyPath isEqualToString:NSStringFromSelector(@selector(rightBarButtonItem))]) {
 
                 [self.contentView.rightBarButtonItem removeTarget:self
                                                            action:NULL
