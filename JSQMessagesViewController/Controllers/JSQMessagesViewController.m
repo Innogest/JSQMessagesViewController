@@ -733,6 +733,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)jsq_handleDidChangeStatusBarFrameNotification:(NSNotification *)notification
 {
+    
     if (self.keyboardController.keyboardIsVisible) {
         [self jsq_setToolbarBottomLayoutGuideConstant:CGRectGetHeight(self.keyboardController.currentKeyboardFrame)];
     }
@@ -809,18 +810,19 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
     CGFloat heightFromBottom = CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(keyboardFrame);
 
-    heightFromBottom = MAX(0.0f, heightFromBottom);
+    heightFromBottom = MAX(48.f, heightFromBottom);
 
     [self jsq_setToolbarBottomLayoutGuideConstant:heightFromBottom];
 }
 
 - (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant
 {
-    self.toolbarBottomLayoutGuide.constant = constant;
-    [self.view setNeedsUpdateConstraints];
-    [self.view layoutIfNeeded];
-
-    [self jsq_updateCollectionViewInsets];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.toolbarBottomLayoutGuide.constant = constant;
+        [self.view setNeedsUpdateConstraints];
+        [self.view layoutIfNeeded];
+        [self jsq_updateCollectionViewInsets];
+    }];
 }
 
 - (void)jsq_updateKeyboardTriggerPoint
