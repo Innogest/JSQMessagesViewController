@@ -88,14 +88,4 @@
  */
 - (JSQMessagesTypingIndicatorFooterView *)dequeueTypingIndicatorFooterViewForIndexPath:(NSIndexPath *)indexPath;
 
-/**
- *  Returns a `JSQMessagesLoadEarlierHeaderView` object for the specified index path
- *  that is configured using the collection view's loadEarlierMessagesHeaderTextColor property.
- *
- *  @param indexPath The index path specifying the location of the supplementary view in the collection view. This value must not be `nil`.
- *
- *  @return A valid `JSQMessagesLoadEarlierHeaderView` object.
- */
-- (JSQMessagesLoadEarlierHeaderView *)dequeueLoadEarlierMessagesViewHeaderForIndexPath:(NSIndexPath *)indexPath;
-
 @end
