@@ -27,9 +27,6 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
 @property (weak, nonatomic) IBOutlet JSQMessagesComposerTextView *textView;
 
-@property (weak, nonatomic) IBOutlet UIView *leftBarButtonContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftBarButtonContainerViewWidthConstraint;
-
 @property (weak, nonatomic) IBOutlet UIView *rightBarButtonContainerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightBarButtonContainerViewWidthConstraint;
 
@@ -67,7 +64,6 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 - (void)dealloc
 {
     _textView = nil;
-    _leftBarButtonItem = nil;
     _rightBarButtonItem = nil;
     _leftBarButtonContainerView = nil;
     _rightBarButtonContainerView = nil;
@@ -84,12 +80,7 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
 - (void)setLeftBarButtonItem:(UIButton *)leftBarButtonItem
 {
-    if (_leftBarButtonItem) {
-        [_leftBarButtonItem removeFromSuperview];
-    }
-
     if (!leftBarButtonItem) {
-        _leftBarButtonItem = nil;
         self.leftHorizontalSpacingConstraint.constant = 0.0f;
         self.leftBarButtonItemWidth = 0.0f;
         self.leftBarButtonContainerView.hidden = YES;
@@ -108,14 +99,6 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
     [self.leftBarButtonContainerView addSubview:leftBarButtonItem];
     [self.leftBarButtonContainerView jsq_pinAllEdgesOfSubview:leftBarButtonItem];
-    [self setNeedsUpdateConstraints];
-
-    _leftBarButtonItem = leftBarButtonItem;
-}
-
-- (void)setLeftBarButtonItemWidth:(CGFloat)leftBarButtonItemWidth
-{
-    self.leftBarButtonContainerViewWidthConstraint.constant = leftBarButtonItemWidth;
     [self setNeedsUpdateConstraints];
 }
 
@@ -169,11 +152,6 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 }
 
 #pragma mark - Getters
-
-- (CGFloat)leftBarButtonItemWidth
-{
-    return self.leftBarButtonContainerViewWidthConstraint.constant;
-}
 
 - (CGFloat)rightBarButtonItemWidth
 {

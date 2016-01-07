@@ -99,18 +99,6 @@
 @property (weak, nonatomic, readonly) JSQMessagesLabel *cellTopLabel;
 
 /**
- *  Returns the label that is pinned just above the messageBubbleImageView, and below the cellTopLabel.
- *  This label is most commonly used to display the message sender.
- */
-@property (weak, nonatomic, readonly) JSQMessagesLabel *messageBubbleTopLabel;
-
-/**
- *  Returns the label that is pinned to the bottom of the cell.
- *  This label is most commonly used to display message delivery status.
- */
-@property (weak, nonatomic, readonly) JSQMessagesLabel *cellBottomLabel;
-
-/**
  *  Returns the text view of the cell. This text view contains the message body text.
  *
  *  @warning If mediaView returns a non-nil view, then this value will be `nil`.
@@ -141,18 +129,6 @@
  *  Returns the avatar image view of the cell that is responsible for displaying avatar images.
  */
 @property (weak, nonatomic, readonly) UIImageView *avatarImageView;
-
-/**
- *  Returns the avatar container view of the cell. This view is the superview of the cell's avatarImageView.
- *
- *  @discussion You may customize the cell by adding custom views to this container view.
- *  To do so, override `collectionView:cellForItemAtIndexPath:`
- *
- *  @warning You should not try to manipulate any properties of this view, for example adjusting
- *  its frame, nor should you remove this view from the cell or remove any of its subviews.
- *  Doing so could result in unexpected behavior.
- */
-@property (weak, nonatomic, readonly) UIView *avatarContainerView;
 
 /**
  *  The media view of the cell. This view displays the contents of a media message.

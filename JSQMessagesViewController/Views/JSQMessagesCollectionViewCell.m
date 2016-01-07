@@ -32,15 +32,12 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 @interface JSQMessagesCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *cellTopLabel;
-@property (weak, nonatomic) IBOutlet JSQMessagesLabel *messageBubbleTopLabel;
-@property (weak, nonatomic) IBOutlet JSQMessagesLabel *cellBottomLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *messageBubbleContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *messageBubbleImageView;
 @property (weak, nonatomic) IBOutlet JSQMessagesCellTextView *textView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet UIView *avatarContainerView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageBubbleContainerWidthConstraint;
 
@@ -50,11 +47,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewMarginHorizontalSpaceConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cellTopLabelHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageBubbleTopLabelHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cellBottomLabelHeightConstraint;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewWidthConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewHeightConstraint;
 
 @property (assign, nonatomic) UIEdgeInsets textViewFrameInsets;
 
@@ -112,8 +104,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.backgroundColor = [UIColor whiteColor];
 
     self.cellTopLabelHeightConstraint.constant = 0.0f;
-    self.messageBubbleTopLabelHeightConstraint.constant = 0.0f;
-    self.cellBottomLabelHeightConstraint.constant = 0.0f;
 
     self.avatarViewSize = CGSizeZero;
 
@@ -121,11 +111,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     self.cellTopLabel.font = [UIFont boldSystemFontOfSize:12.0f];
     self.cellTopLabel.textColor = [UIColor lightGrayColor];
 
-    self.messageBubbleTopLabel.font = [UIFont systemFontOfSize:12.0f];
-    self.messageBubbleTopLabel.textColor = [UIColor lightGrayColor];
 
-    self.cellBottomLabel.font = [UIFont systemFontOfSize:11.0f];
-    self.cellBottomLabel.textColor = [UIColor lightGrayColor];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
@@ -137,8 +123,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     _delegate = nil;
 
     _cellTopLabel = nil;
-    _messageBubbleTopLabel = nil;
-    _cellBottomLabel = nil;
 
     _textView = nil;
     _messageBubbleImageView = nil;
@@ -157,8 +141,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     [super prepareForReuse];
 
     self.cellTopLabel.text = nil;
-    self.messageBubbleTopLabel.text = nil;
-    self.cellBottomLabel.text = nil;
 
     self.textView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.textView.text = nil;
@@ -194,12 +176,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
     [self jsq_updateConstraint:self.cellTopLabelHeightConstraint
                   withConstant:customAttributes.cellTopLabelHeight];
-
-    [self jsq_updateConstraint:self.messageBubbleTopLabelHeightConstraint
-                  withConstant:customAttributes.messageBubbleTopLabelHeight];
-
-    [self jsq_updateConstraint:self.cellBottomLabelHeightConstraint
-                  withConstant:customAttributes.cellBottomLabelHeight];
 
     if ([self isKindOfClass:[JSQMessagesCollectionViewCellIncoming class]]) {
         self.avatarViewSize = customAttributes.incomingAvatarViewSize;
@@ -275,14 +251,11 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     [super setBackgroundColor:backgroundColor];
 
     self.cellTopLabel.backgroundColor = backgroundColor;
-    self.messageBubbleTopLabel.backgroundColor = backgroundColor;
-    self.cellBottomLabel.backgroundColor = backgroundColor;
 
     self.messageBubbleImageView.backgroundColor = backgroundColor;
     self.avatarImageView.backgroundColor = backgroundColor;
 
     self.messageBubbleContainerView.backgroundColor = backgroundColor;
-    self.avatarContainerView.backgroundColor = backgroundColor;
 }
 
 - (void)setAvatarViewSize:(CGSize)avatarViewSize
@@ -290,9 +263,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     if (CGSizeEqualToSize(avatarViewSize, self.avatarViewSize)) {
         return;
     }
-
-    [self jsq_updateConstraint:self.avatarContainerViewWidthConstraint withConstant:avatarViewSize.width];
-    [self jsq_updateConstraint:self.avatarContainerViewHeightConstraint withConstant:avatarViewSize.height];
 }
 
 - (void)setTextViewFrameInsets:(UIEdgeInsets)textViewFrameInsets
@@ -331,14 +301,6 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     });
 }
 
-#pragma mark - Getters
-
-- (CGSize)avatarViewSize
-{
-    return CGSizeMake(self.avatarContainerViewWidthConstraint.constant,
-                      self.avatarContainerViewHeightConstraint.constant);
-}
-
 - (UIEdgeInsets)textViewFrameInsets
 {
     return UIEdgeInsetsMake(self.textViewTopVerticalSpaceConstraint.constant,
@@ -364,10 +326,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 {
     CGPoint touchPt = [tap locationInView:self];
 
-    if (CGRectContainsPoint(self.avatarContainerView.frame, touchPt)) {
-        [self.delegate messagesCollectionViewCellDidTapAvatar:self];
-    }
-    else if (CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt)) {
+    if (CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt)) {
         [self.delegate messagesCollectionViewCellDidTapMessageBubble:self];
     }
     else {
